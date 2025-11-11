@@ -2,13 +2,13 @@
 
 namespace Models
 {
-    public class Player : IEquatable<Player>
+    public class Player : IEquatable<Player>, IPlayer
     {
         // Prénom
         private string FirstName { get; }
         // Nom
         private string LastName { get; }
-        private string Alias { get; }
+        public string Alias { get; }
         public Spaceship BattleShip { get; set; }
 
         public Player(string firstName, string lastName, string alias )

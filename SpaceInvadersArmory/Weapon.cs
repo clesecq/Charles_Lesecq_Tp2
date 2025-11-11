@@ -14,6 +14,14 @@ namespace SpaceInvadersArmory
         public double MinDamage { get; set; }
         public double MaxDamage { get; set; }
         public double AverageDamage => (MinDamage + MaxDamage) / 2;
+        public double ReloadTime { get; set; }
+        public double TimeBeforReload { get; set; }
+        public bool IsReload { get; }
+        
+        public double Shoot()
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Constructeur avec une visibilité internal pour que seule l'armurerie puisse créer des armes.

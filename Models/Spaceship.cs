@@ -2,14 +2,37 @@
 
 namespace Models
 {
-    public class Spaceship : IEquatable<Spaceship>
+    public class Spaceship : IEquatable<Spaceship>,  ISpaceship
     {
         public Guid Id { get; } = new Guid();
         public string Name { get; set; }
+        public double Structure { get; set; }
+        public double Shield { get; set; }
         public double MaxStructure { get; set; }
         public double MaxShield { get; set; }
         public double CurrentStructure { get; set; }
         public double CurrentShield { get; set; }
+        public bool BelongsPlayer { get; }
+        public void TakeDamages(double damages)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RepairShield(double repair)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShootTarget(Spaceship target)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReloadWeapons()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool IsDestroyed => CurrentStructure <= 0;
         public int MaxWeapons { get; } = 3;
         public List<Weapon> Weapons { get; } = new List<Weapon>();
