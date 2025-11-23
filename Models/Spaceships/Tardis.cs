@@ -7,8 +7,10 @@ public class Tardis : Spaceship, IAbility
     public Tardis()
     {
         Name = "Tardis";
-        MaxStructure = 1;
-        MaxShield = 0;
+        Structure = 1;
+        CurrentStructure = 1;
+        Shield = 0;
+        CurrentShield = 0;
     }
     
     /// <summary>

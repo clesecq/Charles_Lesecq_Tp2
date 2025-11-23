@@ -10,7 +10,7 @@ namespace Models
         // Nom
         private string LastName { get; } = lastName.Proper();
         public string Alias { get; } = alias;
-        public Spaceship BattleShip { get; set; } = new ViperMKII();
+        public Spaceship BattleShip { get; set; } = new ViperMKII { BelongsPlayer = true };
 
         public string Name => $"{FirstName} {LastName}";
 

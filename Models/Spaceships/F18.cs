@@ -5,8 +5,10 @@ public class F18: Spaceship, IAbility
     public F18()
     {
         Name = "F18";
-        MaxStructure = 15;
-        MaxShield = 0;
+        Structure = 15;
+        CurrentStructure = 15;
+        Shield = 0;
+        CurrentShield = 0;
     }
 
     /// <summary>
@@ -26,7 +28,7 @@ public class F18: Spaceship, IAbility
             if (shipBefore.BelongsPlayer)
             {
                 shipBefore.CurrentStructure -= 10;
-                this.CurrentStructure = 0;
+                CurrentStructure = 0;
             }
         }
         

@@ -15,7 +15,7 @@ namespace SpaceInvadersArmory
         public static Armory Instance => lazy.Value;
 
         private Armory() { Init(); }
-        #endregion Patern singleton
+        #endregion Pattern singleton
 
         private List<WeaponBlueprint> _blueprints = [];
         
@@ -24,13 +24,12 @@ namespace SpaceInvadersArmory
         
         private void Init()
         {
-            CreateBlueprint("Laser", EWeaponType.Direct, 2, 3, 2);
-            CreateBlueprint("Hammer", EWeaponType.Explosive, 1, 8, 1.5);
-            CreateBlueprint("Torpille", EWeaponType.Guided, 3, 3, 2);
-            CreateBlueprint("Mitrailleuse", EWeaponType.Direct, 3, 8, 1.5);
-
-            CreateBlueprint("EMG", EWeaponType.Explosive, 1, 7, 1.5);
-            CreateBlueprint("Missile", EWeaponType.Guided, 4, 100, 4);
+            _blueprints.Add(new WeaponBlueprint { Name = "Laser", Type = EWeaponType.Direct, MinDamage = 2, MaxDamage = 3, ReloadTime = 2 });
+            _blueprints.Add(new WeaponBlueprint { Name = "Hammer", Type = EWeaponType.Explosive, MinDamage = 1, MaxDamage = 8, ReloadTime = 1.5 });
+            _blueprints.Add(new WeaponBlueprint { Name = "Torpille", Type = EWeaponType.Guided, MinDamage = 3, MaxDamage = 3, ReloadTime = 2 });
+            _blueprints.Add(new WeaponBlueprint { Name = "Mitrailleuse", Type = EWeaponType.Direct, MinDamage = 6, MaxDamage = 8, ReloadTime = 1 });
+            _blueprints.Add(new WeaponBlueprint { Name = "EMG", Type = EWeaponType.Explosive, MinDamage = 1, MaxDamage = 7, ReloadTime = 1.5 });
+            _blueprints.Add(new WeaponBlueprint { Name = "Missile", Type = EWeaponType.Guided, MinDamage = 4, MaxDamage = 100, ReloadTime = 4 });
         }
 
         public static void ViewArmory()

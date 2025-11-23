@@ -6,15 +6,18 @@ namespace Models
     {
         private Guid Id { get; } = new Guid();
         public string Name { get; set; }
+
         public double Structure { get; set; }
         public double Shield { get; set; }
-        protected double MaxStructure { get; init; }
-        protected double MaxShield { get; init; }
+        public bool IsDestroyed => CurrentStructure <= 0;
+        public int MaxWeapons { get; } = 3;
+        public List<Weapon> Weapons { get; } = [];
+        public double AverageDamages => (Weapons.Sum(x => x.MinDamage) + Weapons.Sum(x => x.MaxDamage)) / 2;
         public double CurrentStructure { get; set; }
         public double CurrentShield { get; set; }
-        public bool BelongsPlayer { get; }
+        public bool BelongsPlayer { get; init; } = false;
         
-        public void TakeDamages(double damages)
+        public virtual void TakeDamages(double damages)
         {
             if (CurrentShield > 0)
             {
@@ -35,13 +38,17 @@ namespace Models
 
         public void RepairShield(double repair)
         {
-            throw new NotImplementedException();
+            CurrentShield += repair;
+            if (CurrentShield > Shield)
+            {
+                CurrentShield = Shield;
+            }
         }
 
-        public void ShootTarget(Spaceship target)
+        public virtual void ShootTarget(Spaceship target)
         {
-            var damages = Weapons.Sum(w => w.Shoot());
-            target.TakeDamages(damages);
+            Weapons.ForEach(w => w.TimeBeforeReload--);
+            target.TakeDamages(Weapons.Sum(w => w.Shoot()));
         }
 
         public void ReloadWeapons()
@@ -49,14 +56,8 @@ namespace Models
             throw new NotImplementedException();
         }
 
-        public bool IsDestroyed => CurrentStructure <= 0;
-        public int MaxWeapons { get; } = 3;
-        public List<Weapon> Weapons { get; } = new List<Weapon>();
-        public double AverageDamages => (Weapons.Sum(x => x.MinDamage) + Weapons.Sum(x => x.MaxDamage)) / 2;
 
-        public Spaceship(){ }
-
-        public void AddWeapon(Weapon weapon)
+        public virtual void AddWeapon(Weapon weapon)
         {
             // test si l'arme provient bien de l'armurerie, mais c'est quasiment impossible avec les visibilités utilisées
             if (!Armory.IsWeaponFromArmory(weapon)) { throw new ArmoryException(); }
@@ -77,8 +78,8 @@ namespace Models
         {
             Console.WriteLine("===== INFOS VAISSEAU =====");
             Console.WriteLine("Nom : " + Name);
-            Console.WriteLine("Points de vie : " + MaxStructure);
-            Console.WriteLine("Bouclier : " + MaxShield);
+            Console.WriteLine($"Points de vie : {CurrentStructure}/{Structure}");
+            Console.WriteLine($"Bouclier : {CurrentShield}/{Shield}");
             ViewWeapons();
             Console.WriteLine("Dommages moyens: " + AverageDamages );
             Console.WriteLine();

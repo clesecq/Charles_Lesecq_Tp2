@@ -4,13 +4,15 @@ namespace Models;
 
 public class Rocinante : Spaceship
 {
-    // TODO: Le Rocinante est plus rapide et esquive beaucoup mieux les tirs. Il a deux fois moins de chance de se faire toucher qu’un vaisseau normal. 
+    private Random _random = new();
     
     public Rocinante()
     {
         Name = "Rocinante";
-        MaxStructure = 3;
-        MaxShield = 5;
+        Structure = 3;
+        CurrentStructure = 3;
+        Shield = 5;
+        CurrentShield = 5;
 
         var blueprint = Armory.Blueprints.Find(b => b.Name == "Torpille");
         if (blueprint == null)
@@ -18,5 +20,11 @@ public class Rocinante : Spaceship
         
         var weapon = Armory.CreateWeapon(blueprint);
         Weapons.Add(weapon);
+    }
+
+    public override void TakeDamages(double damages)
+    {
+        if (_random.Next(2) == 0)
+            base.TakeDamages(damages);
     }
 }

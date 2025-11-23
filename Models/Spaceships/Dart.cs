@@ -4,13 +4,13 @@ namespace Models;
 
 public class Dart : Spaceship
 {
-    // TODO:  Un Dart ne tient pas compte du temps de chargement d’une arme de type “Direct” et peut utiliser ces armes à chaque tour.
-    
     public Dart()
     {
         Name = "Dart";
-        MaxStructure = 10;
-        MaxShield = 3;
+        Structure = 10;
+        CurrentStructure = 10;
+        Shield = 3;
+        CurrentShield = 3;
 
         var blueprint = Armory.Blueprints.Find(b => b.Name == "Laser");
         if (blueprint == null)
@@ -18,5 +18,14 @@ public class Dart : Spaceship
         
         var weapon = Armory.CreateWeapon(blueprint);
         Weapons.Add(weapon);
+    }
+    
+    public override void AddWeapon(Weapon weapon)
+    {
+        if (weapon.Type == EWeaponType.Direct)
+        {
+            weapon.ReloadTime = 0;
+        }
+        base.AddWeapon(weapon);
     }
 }
