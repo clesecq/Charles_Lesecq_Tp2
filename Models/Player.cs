@@ -2,22 +2,15 @@
 
 namespace Models
 {
-    public class Player : IEquatable<Player>, IPlayer
+    public class Player(string firstName, string lastName, string alias) : IEquatable<Player>, IPlayer
     {
         // Prénom
-        private string FirstName { get; }
-        // Nom
-        private string LastName { get; }
-        public string Alias { get; }
-        public Spaceship BattleShip { get; set; }
+        private string FirstName { get; } = firstName.Proper();
 
-        public Player(string firstName, string lastName, string alias )
-        {
-            FirstName = firstName.Proper();
-            LastName = lastName.Proper();
-            Alias = alias;
-            BattleShip = new ViperMKII();
-        }
+        // Nom
+        private string LastName { get; } = lastName.Proper();
+        public string Alias { get; } = alias;
+        public Spaceship BattleShip { get; set; } = new ViperMKII();
 
         public string Name => $"{FirstName} {LastName}";
 
