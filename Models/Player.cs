@@ -16,22 +16,16 @@ namespace Models
             FirstName = firstName.Proper();
             LastName = lastName.Proper();
             Alias = alias;
-            BattleShip = Spaceship.DefaultSpaceship();
+            BattleShip = new ViperMKII();
         }
 
-        public string Name { get { return FirstName + " " + LastName; } }
+        public string Name => $"{FirstName} {LastName}";
 
-        public override string ToString()
-        {
-            return Alias + " (" + Name + ")";
-        }
+        public override string ToString() => $"{Alias} ({Name})";
 
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as Player);
-        }
+        public override bool Equals(object? obj) => Equals(obj as Player);
 
-        public bool Equals(Player other)
+        public bool Equals(Player? other)
         {
             return other != null &&
                    Alias == other.Alias;

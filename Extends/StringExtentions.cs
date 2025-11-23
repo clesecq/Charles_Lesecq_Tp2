@@ -6,7 +6,7 @@ namespace Extends
     public static class StringExtentions
     {
         /// <summary>
-        /// Methode d'extention du type string permetant de mettre en majuscule chaque première lettre de chaque mot et le reste du mot en minuscule
+        /// Methode d'extension du type string permettant de mettre en majuscule chaque première lettre de chaque mot et le reste du mot en minuscule
         /// </summary>
         /// <param name="str">La chaine de caractère à transformer</param>
         /// <returns>La chaine transformée</returns>

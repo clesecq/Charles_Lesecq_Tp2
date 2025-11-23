@@ -13,8 +13,8 @@ namespace SpaceInvadersArmory
         public EWeaponType Type { get; set; }
 
         /// <summary>
-        /// Constructeur avec une visibilité internal pour que seule l'armurerie puisse créer de nouveaux shémas.
-        /// Par ce moyen on s'assure que tout les shéma créé sont contenu dans l'armurerie
+        /// Constructeur avec une visibilité internal pour que seule l'armurerie puisse créer de nouveaux schémas.
+        /// Par ce moyen, on s'assure que tous les shéma créé sont contenu dans l'armurerie
         /// </summary>
         /// <remarks>Exemple d'utilisation de la visibilité internal</remarks>
         internal WeaponBlueprint() { }
