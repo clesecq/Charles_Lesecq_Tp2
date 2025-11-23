@@ -26,7 +26,7 @@ namespace ConsoleGame
         static void Main(string[] args)
         {
             Armory.ViewArmory();
-            foreach (var item in SpaceInvaders.Instance.Players)
+            foreach (var item in Instance.Players)
             {
                 Console.WriteLine(item.ToString());
                 item.BattleShip.ViewShip();

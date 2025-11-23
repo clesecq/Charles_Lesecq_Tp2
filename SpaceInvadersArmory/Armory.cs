@@ -18,22 +18,26 @@ namespace SpaceInvadersArmory
         private Armory() { Init(); }
         #endregion Patern singleton
 
-        private List<WeaponBlueprint> blueprints = new List<WeaponBlueprint>();
+        private List<WeaponBlueprint> _blueprints = [];
+        
         //empèche une autre entité de modifier la liste de shémas en renvoyant une liste de clone et non les shéma réelement présent dans l'armurerie
-        public static List<WeaponBlueprint> Blueprints { get { return Instance.blueprints.Select(a => (WeaponBlueprint)a.Clone()).ToList(); } } 
+        public static List<WeaponBlueprint> Blueprints { get { return Instance._blueprints.Select(a => (WeaponBlueprint)a.Clone()).ToList(); } } 
         
         private void Init()
         {
-            blueprints.Add(new WeaponBlueprint { Name="Laser", Type = EWeaponType.Direct, MinDamage=3, MaxDamage=5});
-            blueprints.Add(new WeaponBlueprint { Name = "Missile", Type = EWeaponType.Explosive, MinDamage = 1, MaxDamage = 8});
-            blueprints.Add(new WeaponBlueprint { Name = "Tête chercheuse", Type = EWeaponType.Guided, MinDamage = 3, MaxDamage = 3});
+            _blueprints.Add(new WeaponBlueprint { Name="Laser", Type = EWeaponType.Direct, MinDamage=2, MaxDamage=3, ReloadTime = 2 });
+            _blueprints.Add(new WeaponBlueprint { Name = "Hammer", Type = EWeaponType.Explosive, MinDamage = 1, MaxDamage = 8, ReloadTime = 1.5 });
+            _blueprints.Add(new WeaponBlueprint { Name = "Torpille", Type = EWeaponType.Guided, MinDamage = 3, MaxDamage = 3, ReloadTime = 2 });
+            _blueprints.Add(new WeaponBlueprint { Name = "Mitrailleuse", Type = EWeaponType.Direct, MinDamage = 3, MaxDamage = 8, ReloadTime = 1.5 });
+            _blueprints.Add(new WeaponBlueprint { Name = "EMG", Type = EWeaponType.Explosive, MinDamage = 1, MaxDamage = 7, ReloadTime = 1.5 });
+            _blueprints.Add(new WeaponBlueprint { Name = "Missile", Type = EWeaponType.Guided, MinDamage = 4, MaxDamage = 100, ReloadTime = 4 });
         }
 
         public static void ViewArmory()
         {
             Console.WriteLine("=====            Armurerie            =====");
             Console.WriteLine("===== Liste des shémas de constrution =====");
-            foreach (var item in Instance.blueprints)
+            foreach (var item in Instance._blueprints)
             {
                 Console.WriteLine(item.ToString());
             }
@@ -51,7 +55,7 @@ namespace SpaceInvadersArmory
         public static WeaponBlueprint CreatBlueprint(string name, EWeaponType type, double minDamage, double maxDamage)
         {
             WeaponBlueprint blueprint = new WeaponBlueprint { Name = name, Type = type, MinDamage = minDamage, MaxDamage = maxDamage };
-            Instance.blueprints.Add(blueprint);
+            Instance._blueprints.Add(blueprint);
             return blueprint;
         }
 
@@ -69,7 +73,7 @@ namespace SpaceInvadersArmory
 
         public static bool IsWeaponFromArmory(Weapon weapon)
         {
-            return Instance.blueprints.Contains(weapon.Blueprint);
+            return Instance._blueprints.Contains(weapon.Blueprint);
         }
     }
 }

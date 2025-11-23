@@ -15,12 +15,34 @@ namespace SpaceInvadersArmory
         public double MaxDamage { get; set; }
         public double AverageDamage => (MinDamage + MaxDamage) / 2;
         public double ReloadTime { get; set; }
-        public double TimeBeforReload { get; set; }
-        public bool IsReload { get; }
+        public double TimeBeforeReload { get; set; }
         
+        public bool IsReload => ReloadTime > 0;
+
         public double Shoot()
         {
-            throw new NotImplementedException();
+            // TODO: gérer les tours
+            if (IsReload)
+                return 0;
+            
+            // Une arme de type guidée touche toujours, mais avec les dégâts minimums
+            if (Type == EWeaponType.Guided)
+                return MinDamage;
+            
+            // Aléatoire
+            var rand = new Random();
+            
+            // Si l’arme est de type direct alors elle a 1 chance sur 10 de rater sa cible (0 dégât)
+            if (Type == EWeaponType.Direct && rand.Next(10) == 0)
+                return 0;
+            
+            var damage = rand.NextDouble() * (MaxDamage - MinDamage) + MinDamage;
+
+            // Une arme de type explosif multiplie le résultat et le temps de rechargement par 2, et a 1 chance sur 4 de rater ;
+            if (Type == EWeaponType.Explosive)
+                return rand.Next(4) != 0 ? damage * 2 : 0;
+            
+            return damage;
         }
 
         /// <summary>
@@ -35,6 +57,8 @@ namespace SpaceInvadersArmory
             Type = blueprint.Type;
             MinDamage = blueprint.MinDamage;
             MaxDamage = blueprint.MaxDamage;
+            ReloadTime = blueprint.ReloadTime;
+            TimeBeforeReload = blueprint.ReloadTime;
         }
    
         public override String ToString()

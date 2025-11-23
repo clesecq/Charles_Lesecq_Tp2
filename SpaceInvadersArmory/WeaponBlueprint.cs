@@ -8,6 +8,7 @@ namespace SpaceInvadersArmory
         public string Name { get; set; }
         public double MinDamage { get; set; }
         public double MaxDamage { get; set; }
+        public double ReloadTime { get; set; }
 
         public EWeaponType Type { get; set; }
 
@@ -40,7 +41,7 @@ namespace SpaceInvadersArmory
         /// <returns>Un shéma cloné</returns>
         public object Clone()
         {
-            return new WeaponBlueprint { Id = this.Id, Name = this.Name, Type = this.Type, MinDamage = this.MinDamage, MaxDamage = this.MaxDamage };
+            return new WeaponBlueprint { Id = Id, Name = Name, Type = Type, MinDamage = MinDamage, MaxDamage = MaxDamage, ReloadTime = ReloadTime};
         }
         public override String ToString()
         {
